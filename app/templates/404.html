@@ -1,51 +1,455 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Página no encontrada</title>>
+    <title>Página No Encontrada - Hilton Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Elementos decorativos animados */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            font-size: 5rem;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            font-size: 4rem;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 15%;
+            font-size: 6rem;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px;
+            z-index: 10;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Número 404 animado */
+        .error-code {
+            font-size: 12rem;
+            font-weight: 900;
+            margin-bottom: -2rem;
+            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite alternate;
+            position: relative;
+        }
+
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .error-code::after {
+            content: '404';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: linear-gradient(45deg, #003366, #0066cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: -1;
+        }
+
+        /* Mensaje de error */
+        .error-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #ffcc00;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .error-message {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Botones de acción */
+        .button-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: #ffcc00;
+            color: #003366;
+        }
+
+        .btn-primary:hover {
+            background: #ffd633;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Búsqueda */
+        .search-box {
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 60px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ffcc00;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #ffcc00;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: #003366;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #ffd633;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Información de contacto */
+        .contact-info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .logo i {
+            color: #ffcc00;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 8rem;
+            }
+            
+            .error-title {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .logo {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Animación de hotel */
+        .hotel-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: float 3s infinite ease-in-out;
+        }
+    </style>
 </head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-    }
-    .container {
-        text-align: center;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-        color: #333;
-    }
-    p {
-        color: #666;
-    }
-    a {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #0056b3;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-    a:hover {
-        background-color: #003d82;
-    }
-</style>
 <body>
-    <div class="container">
-        <h1>404</h1>
-        <p>Parece que la página que estás buscando no existe.</p>
-        <a href="{{ url_for('index') }}">Volver al inicio</a>
+    <!-- Elementos decorativos flotantes -->
+    <div class="floating-element"><i class="fas fa-hotel"></i></div>
+    <div class="floating-element"><i class="fas fa-bed"></i></div>
+    <div class="floating-element"><i class="fas fa-swimming-pool"></i></div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <i class="fas fa-hotel"></i>
+        <span>HILTON HOTEL</span>
     </div>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <div class="hotel-icon">
+            <i class="fas fa-concierge-bell"></i>
+        </div>
+        
+        <div class="error-code">404</div>
+        
+        <h1 class="error-title">¡UH OH! PÁGINA NO ENCONTRADA</h1>
+        
+        <p class="error-message">
+            Lo sentimos, la página que estás buscando parece haberse extraviado en nuestro lujoso hotel. 
+            Mientras nuestro personal la busca, te invitamos a explorar otras áreas de nuestro sitio.
+        </p>
+
+        <!-- Botones de acción -->
+        <div class="button-group">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-home"></i> Volver al Inicio
+            </a>
+            <a href="/habitaciones" class="btn btn-secondary">
+                <i class="fas fa-bed"></i> Ver Habitaciones
+            </a>
+            <a href="/reservas" class="btn btn-secondary">
+                <i class="fas fa-calendar-check"></i> Hacer Reserva
+            </a>
+        </div>
+
+        <!-- Búsqueda -->
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="¿Qué estás buscando en nuestro hotel?">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="contact-info">
+            <p>¿Necesitas ayuda inmediata?</p>
+            <p>
+                <i class="fas fa-phone"></i> Llámanos: +1 234 567 890
+            </p>
+            <p>
+                <i class="fas fa-envelope"></i> Email: asistencia@hiltonhotel.com
+            </p>
+            <p>
+                <i class="fas fa-clock"></i> Disponibles 24/7
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Animación de búsqueda
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.querySelector('.search-input').value;
+            if (query.trim()) {
+                alert(`Buscando: "${query}"\n\nEn un sistema completo, esto redirigiría a los resultados.`);
+                // En un sistema real: window.location.href = `/buscar?q=${encodeURIComponent(query)}`;
+            } else {
+                document.querySelector('.search-input').focus();
+            }
+        });
+
+        // Permitir búsqueda con Enter
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-btn').click();
+            }
+        });
+
+        // Efecto de escritura en el placeholder
+        const placeholders = [
+            "Buscar habitaciones disponibles...",
+            "Encontrar promociones especiales...",
+            "Localizar nuestros restaurantes...",
+            "Información sobre el spa..."
+        ];
+        
+        let currentPlaceholder = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const speed = 100;
+        
+        function typeEffect() {
+            const input = document.querySelector('.search-input');
+            const currentText = placeholders[currentPlaceholder];
+            
+            if (isDeleting) {
+                input.placeholder = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                input.placeholder = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentPlaceholder = (currentPlaceholder + 1) % placeholders.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? speed / 2 : speed);
+            }
+        }
+        
+        // Iniciar efecto después de cargar la página
+        window.addEventListener('load', () => {
+            setTimeout(typeEffect, 1000);
+        });
+
+        // Efecto de confeti al cargar
+        window.addEventListener('load', () => {
+            const colors = ['#ffcc00', '#ff9900', '#003366', '#0066cc', '#ffffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerHTML = '<i class="fas fa-star"></i>';
+                    confetti.style.position = 'absolute';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.opacity = '0.7';
+                    confetti.style.fontSize = Math.random() * 20 + 10 + 'px';
+                    confetti.style.zIndex = '5';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remover después de la animación
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+            
+            // Añadir estilo para la caída
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
 </body>
 </html>

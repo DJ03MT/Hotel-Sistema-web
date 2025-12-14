@@ -1,43 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hilton Hotel</title>
-    <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+{% extends "base.html" %}
 
-<body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <i class="fas fa-hotel"></i>
-            <span>HILTON HOTEL</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="#"><i class="fas fa-bed"></i> Habitaciones</a></li>
-                <li><a href="#"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
-                <li><a href="#"><i class="fas fa-images"></i> Galería</a></li>
-                <li><a href="#"><i class="fas fa-phone"></i> Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+{% block title %}Hilton Hotel Managua - Luxury Experience{% endblock %}
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>EXPERIENCIA DE LUJO INIGUALABLE</h1>
-        <p>Descubre el confort, elegancia y servicio excepcional que solo Hilton puede ofrecer. Tu escapada perfecta comienza aquí.</p>
-        <a href="#" class="btn">
+{% block extra_css %}
+<style>
+    /* Estilos específicos para index */
+    .hero h1 {
+        font-size: 4rem;
+    }
+    
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>EXPERIENCIA DE LUJO EN MANAGUA</h1>
+        <p>Descubre el confort, elegancia y servicio excepcional que solo Hilton Managua puede ofrecer. Tu escapada perfecta comienza aquí.</p>
+        <a href="{{ url_for('habitaciones') }}" class="btn">
+            <i class="fas fa-bed"></i> VER HABITACIONES
+        </a>
+        <a href="{{ url_for('reservas') }}" class="btn btn-secondary ml-2">
             <i class="fas fa-calendar-check"></i> RESERVAR AHORA
         </a>
-    </section>
+    </div>
+</section>
 
-    <!-- Sección Características -->
-    <section class="features">
-        <h2>¿POR QUÉ ELEGIR HILTON?</h2>
+<!-- Sección Características -->
+<section class="features section-padding" id="servicios">
+    <div class="container">
+        <h2 class="section-title">¿POR QUÉ ELEGIR HILTON MANAGUA?</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <i class="fas fa-wifi"></i>
@@ -60,17 +58,19 @@
                 <p>Sistema de seguridad avanzado para tu tranquilidad.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Galería -->
-    <section class="gallery">
-        <h2>NUESTRAS INSTALACIONES</h2>
+<!-- Galería -->
+<section class="gallery section-padding" id="galeria">
+    <div class="container">
+        <h2 class="section-title">NUESTRAS INSTALACIONES</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Habitación de lujo">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80" alt="Restaurante">
+                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurante">
             </div>
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spa">
@@ -79,64 +79,33 @@
                 <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vista panorámica">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>CONTACTO</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
-                <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-                <p><i class="fas fa-envelope"></i> info@hiltonhotel.com</p>
+<!-- Testimonios -->
+<section class="testimonials section-padding" style="background: white;">
+    <div class="container">
+        <h2 class="section-title">LO QUE DICEN NUESTROS HUÉSPEDES</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-quote-left" style="color: #ffcc00;"></i>
+                <p>"Excelente servicio y habitaciones impecables. ¡Volveré seguro!"</p>
+                <h4>Carlos Rodríguez</h4>
+                <small>★★★★★</small>
             </div>
-            <div class="footer-section">
-                <h3>ENLACES RÁPIDOS</h3>
-                <p><a href="#" style="color: white; text-decoration: none;">Reservas</a></p>
-                <p><a href="#" style="color: white; text-decoration: none;">Promociones</a></p>
-                <p><a href="#" style="color: white; text-decoration: none;">Eventos</a></p>
+            <div class="feature-card">
+                <i class="fas fa-quote-left" style="color: #ffcc00;"></i>
+                <p>"El mejor hotel en Managua. La atención es excepcional."</p>
+                <h4>María González</h4>
+                <small>★★★★★</small>
             </div>
-            <div class="footer-section">
-                <h3>SÍGUENOS</h3>
-                <p>
-                    <i class="fab fa-facebook" style="margin: 0 10px; font-size: 1.5rem;"><a href="https://www.facebook.com/hiltonmanagua"></a></i>
-                    <i class="fab fa-instagram" style="margin: 0 10px; font-size: 1.5rem;"><a href="https://www.instagram.com/hiltonmanagua"></a></i>
-                    <i class="fab fa-twitter" style="margin: 0 10px; font-size: 1.5rem;"><a href="https://twitter.com/hiltonmanagua"></a></i>
-                </p>
+            <div class="feature-card">
+                <i class="fas fa-quote-left" style="color: #ffcc00;"></i>
+                <p>"Perfecto para viajes de negocios. WiFi rápido y oficina bien equipada."</p>
+                <h4>Juan Pérez</h4>
+                <small>★★★★☆</small>
             </div>
         </div>
-        <p>&copy; 2025 Hilton Hotel. Todos los derechos reservados.</p>
-    </footer>
-
-    <script>
-        // Efecto scroll suave para enlaces
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId && targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        // Animación al hacer scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(0, 51, 102, 0.98)';
-                header.style.padding = '0.7rem 5%';
-            } else {
-                header.style.background = 'rgba(0, 51, 102, 0.95)';
-                header.style.padding = '1rem 5%';
-            }
-        });
-    </script>
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

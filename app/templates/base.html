@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hilton Hotel Managua{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-container">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Hilton Hotel Logo" class="logo-img">
+            <span class="logo-text">HILTON MANAGUA</span>
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="{{ url_for('habitaciones') }}"><i class="fas fa-bed"></i> Habitaciones</a></li>
+                <li><a href="{{ url_for('reservas') }}"><i class="fas fa-calendar-check"></i> Reservas</a></li>
+                <li><a href="#servicios"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+                <li><a href="#contacto"><i class="fas fa-phone"></i> Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('perfil') }}" class="auth-btn login">
+                    <i class="fas fa-user"></i> Mi Cuenta
+                </a>
+                <a href="{{ url_for('logout') }}" class="auth-btn register">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="auth-btn login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </a>
+                <a href="{{ url_for('register') }}" class="auth-btn register">
+                    <i class="fas fa-user-plus"></i> Registrarse
+                </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CONTACTO</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Carretera a Masaya, Managua, Nicaragua</p>
+                    <p><i class="fas fa-phone"></i> +505 2254 7070</p>
+                    <p><i class="fas fa-envelope"></i> info@hiltonmanagua.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>ENLACES RÁPIDOS</h3>
+                    <p><a href="{{ url_for('habitaciones') }}">Habitaciones & Suites</a></p>
+                    <p><a href="{{ url_for('reservas') }}">Reservas Online</a></p>
+                    <p><a href="#servicios">Servicios del Hotel</a></p>
+                    <p><a href="#galeria">Galería de Fotos</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>SÍGUENOS</h3>
+                    <p>Conéctate con nosotros en redes sociales:</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/hiltonmanagua" target="_blank" class="social-icon" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank" class="social-icon" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank" class="social-icon" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://wa.me/50512345678" target="_blank" class="social-icon" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2024</span> Hilton Hotel Managua. Todos los derechos reservados.</p>
+                <p>Sistema de Reservas Web desarrollado por DJ03MT</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+    
+    <script>
+        // Año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}Habitaciones - Hilton Managua{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/habitaciones.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="rooms-hero">
+    <div class="container">
+        <h1>Nuestras Habitaciones y Suites</h1>
+        <p>Descubre el lujo y confort en cada una de nuestras habitaciones diseñadas para tu máximo disfrute.</p>
+    </div>
+</section>
+
+<!-- Filtros de Búsqueda -->
+<section class="container">
+    <div class="filters-section">
+        <h2 class="text-center mb-2">Encuentra tu habitación ideal</h2>
+        <div class="filter-grid">
+            <div class="filter-group">
+                <label for="check-in"><i class="fas fa-calendar-alt"></i> Fecha de Entrada</label>
+                <input type="date" id="check-in" class="filter-input" value="{{ today }}">
+            </div>
+            
+            <div class="filter-group">
+                <label for="check-out"><i class="fas fa-calendar-alt"></i> Fecha de Salida</label>
+                <input type="date" id="check-out" class="filter-input" value="{{ tomorrow }}">
+            </div>
+            
+            <div class="filter-group">
+                <label for="guests"><i class="fas fa-user-friends"></i> Huéspedes</label>
+                <select id="guests" class="filter-select">
+                    <option value="1">1 Huésped</option>
+                    <option value="2" selected>2 Huéspedes</option>
+                    <option value="3">3 Huéspedes</option>
+                    <option value="4">4 Huéspedes</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="room-type"><i class="fas fa-bed"></i> Tipo de Habitación</label>
+                <select id="room-type" class="filter-select">
+                    <option value="all">Todas las habitaciones</option>
+                    <option value="standard">Habitación Estándar</option>
+                    <option value="deluxe">Habitación Deluxe</option>
+                    <option value="suite">Suite Ejecutiva</option>
+                    <option value="presidential">Suite Presidencial</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button class="btn" style="width: 100%;" onclick="filterRooms()">
+                    <i class="fas fa-search"></i> Buscar Habitaciones
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lista de Habitaciones -->
+<section class="container section-padding">
+    <h2 class="section-title">Habitaciones Disponibles</h2>
+    
+    <div class="rooms-grid" id="rooms-container">
+        <!-- Habitación 1 -->
+        <div class="room-card" data-type="suite" data-price="250" data-capacity="3">
+            <div class="room-image">
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suite Ejecutiva">
+            </div>
+            <div class="room-content">
+                <h3 class="room-title">Suite Ejecutiva</h3>
+                <div class="room-price">$250 <span>/ noche</span></div>
+                <p>Amplia suite con sala separada, escritorio ejecutivo y vistas panorámicas.</p>
+                
+                <div class="room-features">
+                    <div class="room-feature">
+                        <i class="fas fa-user-friends"></i>
+                        <span>3 Personas</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>45 m²</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-bed"></i>
+                        <span>1 Cama King</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-wifi"></i>
+                        <span>WiFi Gratis</span>
+                    </div>
+                </div>
+                
+                <div class="room-actions">
+                    <button class="btn btn-secondary" onclick="viewRoomDetail(1)">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                    <button class="btn" onclick="bookRoom(1)">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Habitación 2 -->
+        <div class="room-card" data-type="deluxe" data-price="180" data-capacity="2">
+            <div class="room-image">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Habitación Deluxe">
+            </div>
+            <div class="room-content">
+                <h3 class="room-title">Habitación Deluxe</h3>
+                <div class="room-price">$180 <span>/ noche</span></div>
+                <p>Habitación espaciosa con balcón privado y baño de lujo.</p>
+                
+                <div class="room-features">
+                    <div class="room-feature">
+                        <i class="fas fa-user-friends"></i>
+                        <span>2 Personas</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>35 m²</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-bed"></i>
+                        <span>2 Camas Queen</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-tv"></i>
+                        <span>TV Pantalla Plana</span>
+                    </div>
+                </div>
+                
+                <div class="room-actions">
+                    <button class="btn btn-secondary" onclick="viewRoomDetail(2)">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                    <button class="btn" onclick="bookRoom(2)">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Habitación 3 -->
+        <div class="room-card" data-type="standard" data-price="120" data-capacity="2">
+            <div class="room-image">
+                <img src="https://images.unsplash.com/photo-1587985064132-6e6a7b7cd0b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Habitación Estándar">
+            </div>
+            <div class="room-content">
+                <h3 class="room-title">Habitación Estándar</h3>
+                <div class="room-price">$120 <span>/ noche</span></div>
+                <p>Cómoda habitación con todas las comodidades necesarias para una estancia placentera.</p>
+                
+                <div class="room-features">
+                    <div class="room-feature">
+                        <i class="fas fa-user-friends"></i>
+                        <span>2 Personas</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>25 m²</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-bed"></i>
+                        <span>1 Cama King</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-bath"></i>
+                        <span>Baño Privado</span>
+                    </div>
+                </div>
+                
+                <div class="room-actions">
+                    <button class="btn btn-secondary" onclick="viewRoomDetail(3)">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                    <button class="btn" onclick="bookRoom(3)">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Habitación 4 -->
+        <div class="room-card" data-type="presidential" data-price="450" data-capacity="4">
+            <div class="room-image">
+                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suite Presidencial">
+            </div>
+            <div class="room-content">
+                <h3 class="room-title">Suite Presidencial</h3>
+                <div class="room-price">$450 <span>/ noche</span></div>
+                <p>La máxima expresión de lujo con living room, comedor y jacuzzi privado.</p>
+                
+                <div class="room-features">
+                    <div class="room-feature">
+                        <i class="fas fa-user-friends"></i>
+                        <span>4 Personas</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>80 m²</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-bed"></i>
+                        <span>2 Camas King</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-hot-tub"></i>
+                        <span>Jacuzzi</span>
+                    </div>
+                </div>
+                
+                <div class="room-actions">
+                    <button class="btn btn-secondary" onclick="viewRoomDetail(4)">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                    <button class="btn" onclick="bookRoom(4)">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Paginación -->
+    <div class="pagination">
+        <button class="pagination-btn" onclick="prevPage()">
+            <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        
+        <div class="pagination-numbers">
+            <span class="pagination-number active">1</span>
+            <span class="pagination-number">2</span>
+            <span class="pagination-number">3</span>
+        </div>
+        
+        <button class="pagination-btn" onclick="nextPage()">
+            Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Fechas por defecto (hoy y mañana)
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowStr = tomorrow.toISOString().split('T')[0];
+        
+        document.getElementById('check-in').value = today;
+        document.getElementById('check-out').value = tomorrowStr;
+    });
+    
+    function filterRooms() {
+        const roomType = document.getElementById('room-type').value;
+        const guests = parseInt(document.getElementById('guests').value);
+        const checkIn = document.getElementById('check-in').value;
+        const checkOut = document.getElementById('check-out').value;
+        
+        // Validar fechas
+        if (checkIn >= checkOut) {
+            alert('La fecha de salida debe ser posterior a la fecha de entrada');
+            return;
+        }
+        
+        // Filtrar habitaciones
+        const rooms = document.querySelectorAll('.room-card');
+        let availableRooms = 0;
+        
+        rooms.forEach(room => {
+            const roomTypeValue = room.dataset.type;
+            const capacity = parseInt(room.dataset.capacity);
+            
+            let showRoom = true;
+            
+            if (roomType !== 'all' && roomTypeValue !== roomType) {
+                showRoom = false;
+            }
+            
+            if (capacity < guests) {
+                showRoom = false;
+            }
+            
+            if (showRoom) {
+                room.style.display = 'block';
+                availableRooms++;
+            } else {
+                room.style.display = 'none';
+            }
+        });
+        
+        // Mostrar mensaje si no hay habitaciones
+        const container = document.getElementById('rooms-container');
+        let message = container.querySelector('.no-rooms-message');
+        
+        if (availableRooms === 0) {
+            if (!message) {
+                message = document.createElement('div');
+                message.className = 'no-rooms-message text-center p-2';
+                message.innerHTML = `
+                    <h3>No hay habitaciones disponibles con esos criterios</h3>
+                    <p>Intenta cambiar las fechas o los filtros de búsqueda.</p>
+                `;
+                container.appendChild(message);
+            }
+        } else if (message) {
+            message.remove();
+        }
+    }
+    
+    function viewRoomDetail(roomId) {
+        window.location.href = `/habitaciones/${roomId}`;
+    }
+    
+    function bookRoom(roomId) {
+        // Guardar la habitación seleccionada en sessionStorage
+        const roomType = document.querySelector(`.room-card[onclick*="${roomId}"] .room-title`).textContent;
+        const roomPrice = document.querySelector(`.room-card[onclick*="${roomId}"] .room-price`).textContent;
+        
+        sessionStorage.setItem('selectedRoom', JSON.stringify({
+            id: roomId,
+            type: roomType,
+            price: roomPrice
+        }));
+        
+        // Redirigir al formulario de reserva
+        window.location.href = "{{ url_for('reservas') }}";
+    }
+    
+    function prevPage() {
+        // Lógica para página anterior
+        alert('Funcionalidad de paginación en desarrollo');
+    }
+    
+    function nextPage() {
+        // Lógica para página siguiente
+        alert('Funcionalidad de paginación en desarrollo');
+    }
+</script>
+{% endblock %}
